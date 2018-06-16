@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1">
+    <title>
+
+
+        Sri Lanka Flood Map | Map of Potential Flooding in Sri Lanka
+
+
+    </title>
+    <meta name="keywords" content="Sri Lanka Flood Map, Global Warming Map, Rising Seas, Rising Oceans,Sri Lanka Flooding" />
+    <meta name="description" content="Interactive map allows you to see what effect rising seas will have on Sri Lanka." />
+
+    <script type="text/javascript" src="http://e.maplarge.com/JS"></script>
+    <link rel="stylesheet" href="http://e.maplarge.com/js/css" />
+    <meta name="description" content="Interactive map allows you to see what effect rising seas will have on your country."
+    />
+
+    <style type="text/css">
+        body,
+        html {
+            margin: 0px;
+            font-family: Arial;
+        }
+
+        h2 {
+            font-family: Arial;
+            font-size: 36px;
+            font-weight: bold;
+            padding-top: 5px;
+        }
+
+        .ListHolder {
+            float: left;
+            color: #545488;
+            font-size: 15px;
+            list-style-image: none;
+            list-style-position: outside;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 120px;
+        }
+
+        #page_description {
+            margin-top: -4px;
+        }
+    </style>
+    <!--[if lte IE 7]>
+    <style>
+    #page description{
+    margin-top:-4px;
+    }
+    </style>
+    <![endif]-->
+
+    <script type="text/javascript">
+        var myWidth = 0,
+            myHeight = 0;
+        standardWidth = 1000;
+        var difference = 0;
+        var javascriptString = '';
+        var startWidth = 0;
+        var startHeight = 0;
+        var newWidth = 0;
+        var newHeight = 0;
+
+        function init() {
+            // quit if this function has already been called
+            if (arguments.callee.done) return;
+
+            // flag this function so we don't do the same thing twice
+            arguments.callee.done = true;
+
+
+
+            getWindowSize();
+            //Do no resize if width is equal to the designed width i.e. 1000px
+            if (myWidth == standardWidth || myWidth < standardWidth) {
+                //document.getElementById('flasharea').innerHTML = javascriptString;
+            }
+
+            //if the screen size is bigger, than get the amount and resize divs
+            else if (myWidth > standardWidth) {
+                //enter the element and 0 if it is full width and shouldn't change or 1 if it is half width
+                resizeList(0);
+                //document.getElementById('flasharea').innerHTML = javascriptString;
+
+            }
+            startWidth = myWidth;
+            startHeight = myHeight;
+
+        }
+
+        function resizeList(status) {
+            sizeTheElement('main content', 0, status);
+            sizeTheElement('sitelinks', 0, status);
+            sizeTheElement('right title resizer', 1, status);
+            sizeTheElement('left title resizer', 1, status);
+            sizeTheElement('left description resizer', 1, status);
+            sizeTheElement('right description resizer', 1, status);
+
+        }
+
+        function sizeTheElement(elementID, elementType, status) {
+            if (status == 0) {
+                if (elementType == 1) {
+                    difference = (myWidth - standardWidth) / 2;
+                } else {
+                    difference = (myWidth - standardWidth);
+                }
+                var existingWidth = document.getElementById(elementID).style.width;
+                var intExistingWidth = parseFloat(existingWidth.replace(/px/, ""));
+                var newElementWidth = intExistingWidth + difference;
+                document.getElementById(elementID).style.width = newElementWidth + "px";
+            } else if (status == 1) {
+                if (elementType == 1) {
+
+                    if (startWidth < newWidth) {
+                        difference = (newWidth - startWidth) / 2;
+                    } else if (startWidth > newWidth) {
+                        if (newWidth <= standardWidth) {
+                            difference = (newWidth - startWidth);
+                        } else {
+                            difference = ((startWidth - newWidth) / 2) * (-1);
+                        }
+                    }
+                } else {
+                    if (startWidth < newWidth) {
+                        difference = (newWidth - startWidth);
+                    } else if (startWidth > newWidth) {
+                        if (newWidth <= standardWidth) {
+                            //difference = 0;
+                            difference = (newWidth - startWidth);
+                        } else {
+                            difference = ((startWidth - newWidth)) * (-1);
+                        }
+                    }
+                }
+                var existingWidth = document.getElementById(elementID).style.width;
+                var intExistingWidth = parseFloat(existingWidth.replace(/px/, ""));
+                var newElementWidth = intExistingWidth + difference;
+                document.getElementById(elementID).style.width = newElementWidth + "px";
+            }
+
+        }
+
+        function getWindowSize() {
+            if (typeof (window.innerWidth) == 'number') {
+                //Non-IE
+                myWidth = window.innerWidth;
+                myHeight = window.innerHeight;
+            } else if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                //IE 6+ in 'standards compliant mode'
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            } else if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                //IE 4 compatible
+                myWidth = document.body.clientWidth;
+                myHeight = document.body.clientHeight;
+            }
+        }
+
+        function resizeWindow() {
+            difference = 0;
+            getWindowSize()
+            newWidth = myWidth;
+            newHeight = myHeight;
+
+            if (startWidth == newWidth || newWidth < standardWidth) {} else {
+                resizeList(1);
+                startWidth = myWidth;
+                startHeight = myHeight;
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+    function initialize() {
+  var myOptions = {
+    zoom: 10,
+    center: new google.maps.LatLng(0, 0),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  var map = new google.maps.Map(
+    document.getElementById("map_canvas"),
+    myOptions);
+  setMarkers(map, beaches);
+}
+
+var beaches = [
+  ['Bondi Beach', -33.890542, 151.274856, 4],
+  ['Coogee Beach', -33.923036, 161.259052, 5],
+  ['Cronulla Beach', -36.028249, 153.157507, 3],
+  ['Manly Beach', -31.80010128657071, 151.38747820854187, 2],
+  ['Maroubra Beach', -33.950198, 151.159302, 1]
+];
+
+function setMarkers(map, locations) {
+  var image = new google.maps.MarkerImage('images/beachflag.png',
+    new google.maps.Size(20, 32),
+    new google.maps.Point(0,0),
+    new google.maps.Point(0, 32));
+  var shadow = new google.maps.MarkerImage('images/beachflag_shadow.png',
+    new google.maps.Size(37, 32),
+    new google.maps.Point(0,0),
+    new google.maps.Point(0, 32));
+  var shape = {
+    coord: [1, 1, 1, 20, 18, 20, 18 , 1],
+    type: 'poly'
+  };
+  var bounds = new google.maps.LatLngBounds();
+  for (var i = 0; i < locations.length; i++) {
+    var beach = locations[i];
+    var myLatLng = new google.maps.LatLng(beach[1], beach[2]);
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      shadow: shadow,
+      icon: image,
+      shape: shape,
+      title: beach[0],
+      zIndex: beach[3]
+    });
+    bounds.extend(myLatLng);
+  }
+  map.fitBounds(bounds);
+}
+                    })
+            };
+
+            document.onkeydown = function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            }
+
+            me.drawMap(18);
+
+            //click events
+            ml.$('button.inchButton').on('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var inchVal = ml.$(this).data('inch');
+                ml.$('#inchInput').val(inchVal);
+                me.drawMap(inchVal);
+            });
+
+            ml.$('#inchInput').on('keyup', function (event) {
+                event.preventDefault();
+                var inchVal = ml.$(this).val();
+                ml.$('#inchInput').val(inchVal);
+                me.drawMap(inchVal);
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost +
+            "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-3763936-11");
+            pageTracker._trackPageview();
+        } catch (err) {}
+    </script>
+</body>
+
+</html>
